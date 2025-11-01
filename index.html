@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario Dinámico</title>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+        button {
+            background-color: green;
+            color: white;
+            padding: 5px;
+            margin: 5px;
+        }
+        div {
+            margin: 10px;
+            padding: 10px;
+            background-color: white;
+        }
+        input {
+            padding: 5px;
+            margin: 5px;
+        }
+        #miFormulario {
+            background-color: pink;
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulario Dinámico</h1>
+    
+    <center>
+        <button onclick="agregarTexto()">Agregar texto</button>
+        <button onclick="agregarNumero()">Agregar número</button>
+    </center>
+    
+    <form id="miFormulario">
+        <!-- aqui van los campos -->
+    </form>
+    
+    <center>
+        <button onclick="enviar()">Enviar Formulario</button>
+    </center>
+
+    <script>
+        var numero = 1;
+
+        function agregarTexto() {
+            var div = document.createElement('div');
+            div.innerHTML = 
+                '<label>Campo ' + numero + ': </label>' +
+                '<input type="text" name="campo' + numero + '">' +
+                '<button onclick="this.parentElement.remove()">Borrar</button>';
+            
+            document.getElementById('miFormulario').appendChild(div);
+            numero = numero + 1;
+        }
+
+        function agregarNumero() {
+            var div = document.createElement('div');
+            div.innerHTML = 
+                '<label>Número ' + numero + ': </label>' +
+                '<input type="number" name="numero' + numero + '">' +
+                '<button onclick="this.parentElement.remove()">Borrar</button>';
+            
+            document.getElementById('miFormulario').appendChild(div);
+            numero = numero + 1;
+        }
+
+        function enviar() {
+            var campos = document.getElementById('miFormulario').elements;
+            var mensaje = 'Datos del formulario:\n\n';
+            
+            for(var i = 0; i < campos.length; i++) {
+                if(campos[i].type != 'button') {
+                    mensaje += campos[i].name + ': ' + campos[i].value + '\n';
+                }
+            }
+            
+            alert(mensaje);
+        }
+    </script>
+</body>
+</html>
